@@ -47,7 +47,15 @@ class Review(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
 
     def save_review(self):
-        Review.all_reviews.append(self)
+        # Review.all_reviews.append(self)
+        db.session.add(self)
+        db.session.commit()
+
+
+    @classmethod
+    def get_reviews(cls,id):
+        reviews = Review.query.filter_by(movie_id=id).all()
+        return reviews
 
 
     @classmethod
@@ -75,6 +83,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     password_hash = db.Column(db.String(255))
+    reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
     # pass_secure = db.Column(db.String(255))
 
     @property
