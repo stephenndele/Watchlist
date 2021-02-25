@@ -43,7 +43,8 @@ def register():
         db.session.commit()
         return redirect(url_for('auth.login'))
         title = "New Account"
-    return render_template('auth/register.html',registration_form = form)@auth.route('/register',methods = ["GET","POST"])
+    return render_template('auth/register.html',registration_form = form)
+    # @auth.route('/register',methods = ["GET","POST"])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
