@@ -56,9 +56,11 @@ class User(UserMixin,db.Model):
     def password(self, password):
         self.pass_secure = generate_password_hash(password)
     def verify_password(self,password):
+        # print(self.password_hash);
+        # exit(0)
         return check_password_hash(self.password_hash,password)
     def __repr__(self):
-        return f'User {self.username}'
+        return f'User {self.username, self.password_hash}'
 
    
 class Role(db.Model):
